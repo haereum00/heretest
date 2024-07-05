@@ -1,6 +1,9 @@
-<!-- community/templates/community/home.html -->
 {% extends 'base.html' %}
+{% load static %}
+
+
 {% block title %}Community Home{% endblock %}
+
 {% block content %}
 <div class="profile">
     <img src="{{ user.profile_img.url }}" alt="Profile Picture">
@@ -9,11 +12,19 @@
     <p>Following: <a href="{% url 'community:following_list' %}">{{ following_count }}</a></p>
 </div>
 <hr>
-{% if random_archive %}
-    <div class="archive">
-        <img src="{{ random_archive.image.url }}" alt="Archive Image">
-        <p>{{ random_archive.description }}</p>
-        <p>By {{ random_archive.user.username }}</p>
+{% if all_certifications %}
+    <div class="archive-list">
+        {% for certification in all_certifications %}
+            <div class="archive">
+                {% if certification.walk_image %}
+                    <img src="{{ certification.walk_image.url }}" alt="Archive Image">
+                {% else %}
+                    <img src="{% static 'default_image.PNG' %}" alt="Default Image">
+                {% endif %}
+                <p>{{ certification.description }}</p>
+                <p>By {{ certification.user.username }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% else %}
     <p>No archives available.</p>

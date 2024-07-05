@@ -2,14 +2,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from Accountapp.models import Follow, Member
-from .models import Archive
-import random
+from Countapp.models import Certification  # Import Certification from Countapp
 
 @login_required
 def community_home(request):
-    # Randomly select an archive from other users
-    other_users_archives = Archive.objects.exclude(user=request.user)
-    random_archive = random.choice(other_users_archives) if other_users_archives.exists() else None
+    # Get all certifications from other users
+    all_certifications = Certification.objects.exclude(user=request.user)
 
     # Get user profile data
     user = request.user
@@ -17,7 +15,7 @@ def community_home(request):
     following = Follow.objects.filter(follower=user)
 
     context = {
-        'random_archive': random_archive,
+        'all_certifications': all_certifications,
         'user': user,
         'followers_count': followers.count(),
         'following_count': following.count(),
