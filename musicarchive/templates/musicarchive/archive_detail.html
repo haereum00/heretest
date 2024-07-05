@@ -1,0 +1,19 @@
+<!-- musicarchive/templates/musicarchive/archive_detail.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <h1> 선호하는 음악 장르는?</h1>
+</head>
+<body>
+    <p>{{ archive.description }}</p>
+    <p>Author: {{ archive.author.username }}</p>
+    <p>Created at: {{ archive.created_at }}</p>
+
+    {% if archive.archive_image %}
+        <img src="{{ archive.archive_image.url }}" alt="Image 1" style="max-width: 500px;">
+    {% endif %}
+
+    <a href="{% url 'musicarchive:archive_list' %}">Back to archive list</a>
+</body>
+</html>
