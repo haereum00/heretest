@@ -1,0 +1,21 @@
+<!-- community/templates/community/home.html -->
+{% extends 'base.html' %}
+{% block title %}Community Home{% endblock %}
+{% block content %}
+<div class="profile">
+    <img src="{{ user.profile_img.url }}" alt="Profile Picture">
+    <h2>{{ user.username }}</h2>
+    <p>Followers: <a href="{% url 'community:follower_list' %}">{{ followers_count }}</a></p>
+    <p>Following: <a href="{% url 'community:following_list' %}">{{ following_count }}</a></p>
+</div>
+<hr>
+{% if random_archive %}
+    <div class="archive">
+        <img src="{{ random_archive.image.url }}" alt="Archive Image">
+        <p>{{ random_archive.description }}</p>
+        <p>By {{ random_archive.user.username }}</p>
+    </div>
+{% else %}
+    <p>No archives available.</p>
+{% endif %}
+{% endblock %}
